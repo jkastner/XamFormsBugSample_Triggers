@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:XFBindingTriggerBug"
+             x:Class="XFBindingTriggerBug.MainPage">
+  <StackLayout 
+    Padding="15"
+    >
+    <Label Text="Pick A Color" />
+    <Picker
+      Margin="5"
+      ItemsSource="{Binding TheColors}"
+      ItemDisplayBinding="{Binding Description}"
+      SelectedItem="{Binding TheBoxInfo}" />
+
+    <Label Text="Is Enabled" />
+    <Switch
+      IsToggled="True"
+      x:Name="EnableSwitch" />
+    <Label
+      Margin="5"
+      Text="{Binding TheBoxInfo.Description}" />
+
+
+
+  <Label Text="Box With One Trigger"></Label>
+    <BoxView
+      Margin="5"
+      HeightRequest="50"
+      VerticalOptions="Start"
+      HorizontalOptions="FillAndExpand"
+      Color="{Binding TheBoxInfo.TheColor}"
+      IsEnabled="{Binding Source={x:Reference Name=EnableSwitch}, Path=IsToggled}" >
+      <BoxView.Triggers>
+        <Trigger TargetType="BoxView" Property="IsEnabled" Value="False">
+          <Setter Property="Color" Value="Yellow" />
+        </Trigger>
+      </BoxView.Triggers>
+    </BoxView>
+
+
+  </StackLayout>
+</ContentPage>
